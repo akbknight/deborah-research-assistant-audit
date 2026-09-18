@@ -1,0 +1,34 @@
+version_or_run,platform,python,tests,passed,failed,errors,skipped,source,evidence_type,notes
+v1.2,Linux,3.14.3,211,211,0,0,0,AUDIT_LOG.md (claim),project claim,no log supplied; P0.D3 shows 3.11 never ran
+v1.2 probes on v1.1,Linux,-,18 probes,0,18 VULNERABLE,-,-,fail_on_v11_demo.py (claim in AUDIT_LOG),project claim,red proof that v1.1 was vulnerable
+v2.0 Phase 0,Linux,3.11/3.12/3.13/3.14,454 x4,454 x4,0,0,0,TASKS/FINDINGS_RECONCILIATION,project claim,no log
+v2.0-rc1,Linux,-,2417,2417,0,0,0,AUDIT_LOG.md,project claim,-
+v2.0-rc1,Windows 11 26200,3.14.3,2418,2415,1,2,0,uploaded 8830b1d4.../windows_acceptance_result.json 2026-08-26 19:19 -0400,machine-readable,G5 FAIL; all_pass false; failing test ID unavailable (diagnostics flood)
+v2.0-rc2,Linux,-,2427,2427,0,0,0,AUDIT_LOG.md,project claim,-
+v2.0-rc2,Windows 11,-,2427,2427,0,0,0,owner-reported per AUDIT_LOG (JSON not supplied),project claim,all nine gates green but launcher ran legacy app -> false positive
+v2.0-rc3,Linux,-,2490/2499/2502,-,0,0,0,notes/mutation-log-rc*,project claim,successive counts during rc3
+v2.0-rc3,Windows 11,3.14 (wrapper),2453,2443,1,9,0,turn_0048 user paste (no JSON),conversation,"G5 FAIL, G10 FAIL (pre-existing listener); all_pass false"
+v2.0-rc3 kit run on rc2 zip,Linux,-,15,1,14,0,0,notes rc3 log,project log,gate red-proof
+v2.0-rc4 packaged tests on rc3 zip,Linux,-,20,2,0,18,0,notes rc4 log,project log,red-proof
+v2.0-rc4,Windows,-,-,-,-,-,-,-,Evidence unavailable,RC4 never run on Windows (PROJECT_STATUS contradiction)
+v2.1-rc1,Linux,-,2571,2571,0,0,0,AUDIT_LOG.md,project claim,-
+v2.1-rc1,Windows,3.12.6,2571,2570,1,0,0,uploaded 0c084c0f.../acceptance_junit.xml 2026-09-02,machine-readable,test_audit_regressions.py::test_post_redirect_refused ConnectionError; G5 FAIL; all_pass false
+v2.2-rc1,Linux,-,2668 dev / 2686-2687 with archive,all,0,0,0,AUDIT_LOG.md cycle 3,project claim,-
+v2.2-rc1,Windows,3.14 (Start_Deborah_Python314.bat),-,-,-,-,-,owner screenshot (UI showed v2.1.0),conversation/screenshot,no suite run; version defect
+v3.0 audit cycle 1,Linux,3.13,3637,3637,0,0,0,v30/audit1_pytest.log,log on disk,-
+v3.0 cycle 16,Linux,3.13/3.14,4146,4146,0,0,0,v30/AUDIT_CYCLE_16.md,project claim (4 runs),-
+v3.0 interim kit run,Linux,3.14.3,4103,4103,0,0,0,v30/deborah-research-engine-v3.0/windows_acceptance_kit/* 2026-09-06,log on disk,G2/G9 fail on Linux by design
+v3.0-rc1 final,Linux,3.13 and 3.14,4191,4191,0,0,0,v30/AUDIT_CYCLE_18.md; HANDOFF_TO_AKSHAY.md,project claim (4 runs),cycle 18 CLEAN
+v3.0-rc1,Windows,3.12.6,4191,4178,5,7,1,uploaded eed77b4f.../acceptance_junit.xml 2026-09-07,machine-readable,"test_v21_packaging stray archives; history_store_scope; cycle9_exports [xlsx],[json]; test_v30_sbom; 7 errors screen_timestamps; all_pass false"
+v3.0-rc2 red proofs,Linux,3.13,"W1 18, W2 7, W34 12, W5 10, W6 29, W7 14, W8 21, W9 6",3/6/2/7/27/6/12/5,15/1/10/3/2/8/9/1,0,0,v30/rc2_dev/proofs_rc1_w*.log,log on disk,tests fail on rc1 tree as intended
+v3.0-rc2,Linux,3.13.12 and 3.14.3,4308,4308,0,0,0,RC2_FIX_REPORT.md (logs in /tmp not supplied),project claim,-
+v3.0-rc2,Windows,-,-,-,-,-,-,-,Evidence unavailable,never run
+v3.1-rc1 baseline (rc2 tree),Linux,3.13.12,4308,4308,0,0,0,V31_FEATURE_REPORT.md,project claim,-
+v3.1-rc1,Linux,3.13.12 and 3.14.3,4371,4371,0,0,0,V31_FEATURE_REPORT.md,project claim,1 failure when run concurrently (A-RC2-2 residual)
+v3.1-rc1,Windows,-,-,-,-,-,-,-,Evidence unavailable,never run
+v3.2-rc1 full suite (build a),Linux,3.13.12,4411,4379,32,0,0,v32/evidence/full_suite.log/.xml,log on disk,-
+v3.2-rc1 final suite (source tree),Linux,3.13.12,4413,4411,2,0,0,v32/evidence/final_suite.log/.xml,log on disk,test_w1_every_text_operation_states_its_encoding; test_brave_is_recorded_as_paid...; ran source tree not zip
+v3.2-rc1 live acceptance,Linux,3.13.12,1 run,0,1,0,0,v32/evidence/live_acceptance.json,machine-readable,ProPublica 404; RESEARCH INCOMPLETE
+v3.2-rc2 packaged suite,Linux,3.13.12,4426,4426,0,0,0,v32/deliverables_rc2/packaged_suite_rc2_junit.xml (388.97 s),machine-readable,extracted rc2 tree
+v3.2-rc2 live acceptance,Linux,3.13.12,1 run,0,1,0,0,v32/deliverables_rc2/live_acceptance_rc2.json,machine-readable,search 200; 12x XML 403; IRS timeouts; identity NOT locked
+v3.2-rc2,Windows,-,-,-,-,-,-,-,Evidence unavailable,never run

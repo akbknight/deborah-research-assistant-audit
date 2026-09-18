@@ -1,0 +1,51 @@
+name: Automated Forensic DataOps & Graph Generation
+
+on:
+  push:
+    paths:
+      - 'DEBORAH_*.csv'
+      - 'DEBORAH_*.xlsx'
+      - 'scripts/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  render-dashboards:
+    name: Regenerate High-DPI Visualizations
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python Environment
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install DataOps Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pandas matplotlib numpy openpyxl
+
+      - name: Execute Visualization Pipelines
+        run: |
+          python scripts/visualize_test_evidence.py
+          python scripts/visualize_findings_dashboard.py
+
+      - name: Check for Asset Changes & Commit
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Actions [DataOps Bot]"
+          git add assets/*.png
+          if git diff --staged --quiet; then
+            echo "No changes in generated graphs. Working tree clean."
+          else
+            git commit -m "chore(dataops): auto-regenerate forensic dashboards from updated ledgers [skip ci]"
+            git push
+          fi

@@ -4,6 +4,8 @@
 > **Flagship Audit · Part of the Akshay Kumar Technical Portfolio Ecosystem**  
 > 🌐 **Executive Portfolio:** [https://akbknight.github.io/](https://akbknight.github.io/) · 💼 **LinkedIn Profile:** [linkedin.com/in/akshaykumardl](https://www.linkedin.com/in/akshaykumardl/) · 📄 **Curriculum Vitae:** [Download PDF (369 KB)](https://akbknight.github.io/assets/Akshay_Resume.pdf)
 
+[![Portfolio Ecosystem](https://img.shields.io/badge/Portfolio-akbknight.github.io-0284c7?style=flat-square&logo=github)](https://akbknight.github.io/)
+[![Author](https://img.shields.io/badge/Author-Akshay%20Kumar-09090b?style=flat-square&logo=linkedin)](https://www.linkedin.com/in/akshaykumardl/)
 [![DataOps: Automated Graphs](https://img.shields.io/badge/DataOps-GitHub%20Actions-238636?logo=github-actions&logoColor=white)](#automated-dataops-workflow)
 [![Audit Scope: 62 Archives](https://img.shields.io/badge/Audit%20Scope-62%20Archives%20%7C%2043%20SHA--256-blue)](#forensic-inventory--identity-matrix)
 [![Test Growth: 67 → 4426](https://img.shields.io/badge/Test%20Suite-67%20%E2%86%92%204%2C426%20Passed-10b981)](#test-evidence--the-cross-platform-stability-gap)
@@ -166,6 +168,18 @@ python -m pip install pandas matplotlib numpy openpyxl
 python scripts/visualize_test_evidence.py
 python scripts/visualize_findings_dashboard.py
 ```
+
+---
+
+## 👤 Author & Strategic Portfolio
+
+**Akshay Kumar**  
+STEM MBA Candidate · Business Analytics & AI · American University Kogod School of Business  
+Former Computer Programmer · U.S. Department of State  
+- **Executive Portfolio:** [https://akbknight.github.io/](https://akbknight.github.io/)  
+- **LinkedIn Profile:** [linkedin.com/in/akshaykumardl](https://www.linkedin.com/in/akshaykumardl/)  
+- **Direct Résumé:** [Download PDF (369 KB)](https://akbknight.github.io/assets/Akshay_Resume.pdf)  
+- **Email:** [ak8335a@american.edu](mailto:ak8335a@american.edu)
 
 ---
 

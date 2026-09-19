@@ -1,5 +1,9 @@
 # Deborah Research Assistant — Forensic Systems Audit & Technical Reconstruction
 
+> [!IMPORTANT]
+> **Flagship Audit · Part of the Akshay Kumar Technical Portfolio Ecosystem**  
+> 🌐 **Executive Portfolio:** [https://akbknight.github.io/](https://akbknight.github.io/) · 💼 **LinkedIn Profile:** [linkedin.com/in/akshaykumardl](https://www.linkedin.com/in/akshaykumardl/) · 📄 **Curriculum Vitae:** [Download PDF (369 KB)](https://akbknight.github.io/assets/Akshay_Resume.pdf)
+
 [![DataOps: Automated Graphs](https://img.shields.io/badge/DataOps-GitHub%20Actions-238636?logo=github-actions&logoColor=white)](#automated-dataops-workflow)
 [![Audit Scope: 62 Archives](https://img.shields.io/badge/Audit%20Scope-62%20Archives%20%7C%2043%20SHA--256-blue)](#forensic-inventory--identity-matrix)
 [![Test Growth: 67 → 4426](https://img.shields.io/badge/Test%20Suite-67%20%E2%86%92%204%2C426%20Passed-10b981)](#test-evidence--the-cross-platform-stability-gap)

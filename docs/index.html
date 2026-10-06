@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deborah Autonomous Research Engine | Forensic Audit &amp; SRE Telemetry</title>
+  <meta name="description" content="Independent forensic architectural audit of the Deborah Autonomous Deep-Research Nonprofit Intelligence Engine across 17 builds and 62 archives.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2310b981'><path d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/></svg>">
+  <style>
+    :root {
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+      
+      --bg-base: #07090e;
+      --bg-surface: #0e111a;
+      --bg-card: #141824;
+      --bg-card-hover: #1b2030;
+      --border: #212738;
+      --border-accent: #10b98140;
+      
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      
+      --accent: #10b981;
+      --accent-hover: #059669;
+      --accent-glow: rgba(16, 185, 129, 0.15);
+      
+      --danger: #ef4444;
+      --danger-bg: rgba(239, 68, 68, 0.12);
+      --warning: #f59e0b;
+      --warning-bg: rgba(245, 158, 11, 0.12);
+      --info: #38bdf8;
+      
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    [data-theme="light"] {
+      --bg-base: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-card: #f1f5f9;
+      --bg-card-hover: #e2e8f0;
+      --border: #cbd5e1;
+      --border-accent: #05966940;
+      
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-dim: #64748b;
+      
+      --accent: #059669;
+      --accent-hover: #047857;
+      --accent-glow: rgba(5, 150, 105, 0.12);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 80px;
+    }
+
+    header {
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-surface);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(8px);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .nav-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-main);
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-badge {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: var(--accent-glow);
+      color: var(--accent);
+      border: 1px solid var(--border-accent);
+      font-weight: 600;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: var(--transition);
+    }
+    .btn:active { transform: scale(0.98); }
+
+    .btn-secondary {
+      background: var(--bg-card);
+      border-color: var(--border);
+      color: var(--text-main);
+    }
+    .btn-secondary:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--accent);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #ffffff;
+      font-weight: 600;
+    }
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      box-shadow: 0 0 16px var(--accent-glow);
+    }
+
+    .hero {
+      padding: 64px 0 40px;
+      text-align: center;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin-bottom: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: var(--accent-glow);
+      border: 1px solid var(--border-accent);
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      max-width: 960px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 760px;
+      margin: 0 auto 32px;
+    }
+
+    /* TELEMETRY MATRIX */
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin: 32px 0 48px;
+    }
+
+    .metric-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      transition: var(--transition);
+    }
+    .metric-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .metric-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .metric-title {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-dim);
+      font-weight: 600;
+    }
+
+    .metric-badge {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: var(--accent-glow);
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .metric-value {
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      font-family: var(--font-mono);
+      color: var(--text-main);
+    }
+
+    .metric-sub {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* SECTION CONTAINERS */
+    .section-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      margin-bottom: 48px;
+    }
+
+    .section-header {
+      margin-bottom: 24px;
+    }
+    .section-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-desc {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-top: 4px;
+    }
+
+    .diagram-container {
+      width: 100%;
+      overflow-x: auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 24px;
+    }
+
+    /* FINDINGS LEDGER TABLE */
+    .ledger-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 16px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .search-input {
+      padding: 8px 14px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text-main);
+      font-size: 0.85rem;
+      width: 280px;
+    }
+    .search-input:focus { outline: none; border-color: var(--accent); }
+
+    .filter-pills {
+      display: flex;
+      gap: 8px;
+    }
+    .pill {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: var(--transition);
+      font-weight: 500;
+    }
+    .pill.active {
+      background: var(--accent-glow);
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .table-container {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      text-align: left;
+    }
+
+    th {
+      background: var(--bg-card);
+      padding: 12px 16px;
+      font-weight: 600;
+      color: var(--text-dim);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--border);
+    }
+
+    td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-main);
+    }
+
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: var(--bg-card-hover); }
+
+    .severity-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+    }
+    .sev-high { background: var(--danger-bg); color: var(--danger); }
+    .sev-medium { background: var(--warning-bg); color: var(--warning); }
+    .sev-low { background: var(--accent-glow); color: var(--accent); }
+
+    .status-badge {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .status-resolved { color: var(--accent); }
+    .status-unresolved { color: var(--danger); }
+    .status-paper { color: var(--warning); }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 0;
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      text-align: center;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="container nav-bar">
+      <a href="https://akbknight.github.io/" class="brand">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+        </svg>
+        Deborah Forensic Audit
+        <span class="brand-badge">v3.2-rc2 CERTIFIED</span>
+      </a>
+      <div class="nav-actions">
+        <button id="themeToggle" class="btn btn-secondary" aria-label="Toggle theme">
+          <span id="themeIcon">☀️</span>
+        </button>
+        <a href="https://github.com/akbknight/deborah-research-assistant-audit" target="_blank" rel="noopener" class="btn btn-secondary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+          Audit Ledger
+        </a>
+        <a href="https://akbknight.github.io/irs990-grant-dashboard/" class="btn btn-primary">
+          Grant Dashboard
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-eyebrow">
+        <span>Forensic Architecture &amp; Empirical Vulnerability Ledger</span>
+      </div>
+      <h1>Independent Reliability Audit of the Deborah Research Assistant</h1>
+      <p>
+        Forensic disassembly of 17 builds across 62 cryptographic archive artifacts. Evaluates DNS-rebinding SSRF defenses, zero-API IRS Form 990 extraction bounds, NTFS file-locking regressions, and honest failure state handling.
+      </p>
+    </section>
+
+    <!-- METRICS GRID -->
+    <section class="metric-grid">
+      <div class="metric-card">
+        <div class="metric-header">
+          <span class="metric-title">Test Suite Baseline</span>
+          <span class="metric-badge">LINUX v3.2</span>
+        </div>
+        <div class="metric-value">4,426</div>
+        <div class="metric-sub">0 Failed · 388.97s Runtime · Standalone Isolated ZIP</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-header">
+          <span class="metric-title">Vulnerability Ledger</span>
+          <span class="metric-badge">CATALOGED</span>
+        </div>
+        <div class="metric-value">44 Issues</div>
+        <div class="metric-sub">75% Verified Fixed · 25% Residual Tech Debt / WAF Gaps</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-header">
+          <span class="metric-title">Cryptographic Manifest</span>
+          <span class="metric-badge">SHA256</span>
+        </div>
+        <div class="metric-value">62 Archives</div>
+        <div class="metric-sub">Read-only byte verification · Zero archives altered</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-header">
+          <span class="metric-title">Lead Forensic Auditor</span>
+          <span class="metric-badge">KOGOD AU</span>
+        </div>
+        <div class="metric-value">Akshay Kumar</div>
+        <div class="metric-sub">STEM MBA Candidate · AU Cumulative GPA 3.17 / 4.0</div>
+      </div>
+    </section>
+
+    <!-- SVG TRANSPORT ARCHITECTURE DIAGRAM -->
+    <section class="section-card">
+      <div class="section-header">
+        <h2 class="section-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+          </svg>
+          Pinned Socket Transport Security &amp; SSRF Mitigation Architecture
+        </h2>
+        <p class="section-desc">
+          Vector diagram illustrating the deterministic mitigation for Vulnerability M1: resolving DNS and binding connections via <code>_open_pinned_socket()</code> to eliminate Time-of-Check to Time-of-Use DNS rebinding windows.
+        </p>
+      </div>
+
+      <div class="diagram-container">
+        <svg viewBox="0 0 1020 220" width="100%" height="auto" style="display: block; font-family: var(--font-mono);">
+          <defs>
+            <marker id="arrow2" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 8 5 L 0 9 z" fill="var(--accent)" />
+            </marker>
+          </defs>
+
+          <!-- STAGE 1: INGRESS -->
+          <rect x="10" y="30" width="210" height="160" rx="8" fill="var(--bg-surface)" stroke="var(--border)" stroke-width="1.5" />
+          <rect x="10" y="30" width="210" height="36" rx="8" fill="var(--bg-card)" />
+          <text x="24" y="53" fill="var(--text-main)" font-size="12" font-weight="700">1. TARGET RESOLUTION</text>
+          <text x="24" y="85" fill="var(--text-muted)" font-size="10.5">· Input EIN / Domain</text>
+          <text x="24" y="105" fill="var(--text-muted)" font-size="10.5">· DNS Query via Safe Resolver</text>
+          <text x="24" y="125" fill="var(--danger)" font-size="10.5">· Reject Loopback (127.0.0.1)</text>
+          <text x="24" y="145" fill="var(--danger)" font-size="10.5">· Reject RFC1918 Private IPs</text>
+          <text x="24" y="168" fill="var(--accent)" font-size="10" font-weight="600">STATUS: Validated Public IP</text>
+
+          <!-- CONNECTOR 1 -> 2 -->
+          <path d="M 220 110 L 265 110" stroke="var(--accent)" stroke-width="2" marker-end="url(#arrow2)" fill="none" />
+
+          <!-- STAGE 2: PINNED SOCKET -->
+          <rect x="275" y="30" width="220" height="160" rx="8" fill="var(--bg-surface)" stroke="var(--border)" stroke-width="1.5" />
+          <rect x="275" y="30" width="220" height="36" rx="8" fill="var(--bg-card)" />
+          <text x="289" y="53" fill="var(--text-main)" font-size="12" font-weight="700">2. PINNED SOCKET BIND</text>
+          <text x="289" y="85" fill="var(--text-muted)" font-size="10.5">· _open_pinned_socket()</text>
+          <text x="289" y="105" fill="var(--text-muted)" font-size="10.5">· Connects directly to locked IP</text>
+          <text x="289" y="125" fill="var(--text-muted)" font-size="10.5">· Host header injected for SNI</text>
+          <text x="289" y="145" fill="var(--text-muted)" font-size="10.5">· Prevents TOCTOU Rebinding</text>
+          <text x="289" y="168" fill="var(--accent)" font-size="10" font-weight="600">FIX M1: 18/18 Red Probes Green</text>
+
+          <!-- CONNECTOR 2 -> 3 -->
+          <path d="M 495 110 L 540 110" stroke="var(--accent)" stroke-width="2" marker-end="url(#arrow2)" fill="none" />
+
+          <!-- STAGE 3: DEFENSIVE TRANSPORT -->
+          <rect x="550" y="30" width="210" height="160" rx="8" fill="var(--bg-surface)" stroke="var(--border)" stroke-width="1.5" />
+          <rect x="550" y="30" width="210" height="36" rx="8" fill="var(--bg-card)" />
+          <text x="564" y="53" fill="var(--text-main)" font-size="12" font-weight="700">3. DEFENSIVE BOUNDS</text>
+          <text x="564" y="85" fill="var(--text-muted)" font-size="10.5">· Max Size: 2,000,000 Bytes</text>
+          <text x="564" y="105" fill="var(--text-muted)" font-size="10.5">· Max Redirects: 3 (Enforced)</text>
+          <text x="564" y="125" fill="var(--text-muted)" font-size="10.5">· Environmental Proxies Bypassed</text>
+          <text x="564" y="145" fill="var(--text-muted)" font-size="10.5">· TLS Strict Cert Validation</text>
+          <text x="564" y="168" fill="var(--info)" font-size="10" font-weight="600">BOUND: Stream Throttled</text>
+
+          <!-- CONNECTOR 3 -> 4 -->
+          <path d="M 760 110 L 805 110" stroke="var(--accent)" stroke-width="2" marker-end="url(#arrow2)" fill="none" />
+
+          <!-- STAGE 4: PARSER & HONEST REPORT -->
+          <rect x="815" y="30" width="195" height="160" rx="8" fill="var(--bg-surface)" stroke="var(--border)" stroke-width="1.5" />
+          <rect x="815" y="30" width="195" height="36" rx="8" fill="var(--bg-card)" />
+          <text x="829" y="53" fill="var(--text-main)" font-size="12" font-weight="700">4. HONEST TELEMETRY</text>
+          <text x="829" y="85" fill="var(--text-muted)" font-size="10.5">· Cloudflare 403 Challenge</text>
+          <text x="829" y="105" fill="var(--warning)" font-size="10.5">· Terminate without Guessing</text>
+          <text x="829" y="125" fill="var(--text-muted)" font-size="10.5">· Flag: RESEARCH INCOMPLETE</text>
+          <text x="829" y="145" fill="var(--text-muted)" font-size="10.5">· Sanitized Multi-format Export</text>
+          <text x="829" y="168" fill="var(--success)" font-size="10" font-weight="600">INTEGRITY: Zero Hallucinations</text>
+        </svg>
+      </div>
+    </section>
+
+    <!-- FINDINGS LEDGER EXPLORER -->
+    <section class="section-card">
+      <div class="section-header">
+        <h2 class="section-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
+          Audited Findings &amp; Vulnerability Ledger (44 Records)
+        </h2>
+        <p class="section-desc">
+          Interactive triage ledger cataloged from <code>DEBORAH_FINDINGS_LEDGER.csv</code>. Search by keyword or filter by severity and category.
+        </p>
+      </div>
+
+      <div class="ledger-controls">
+        <input type="text" id="searchInput" class="search-input" placeholder="Search findings by ID, title, or root cause...">
+        <div class="filter-pills">
+          <button class="pill active" data-filter="all">All (44)</button>
+          <button class="pill" data-filter="high">High Severity</button>
+          <button class="pill" data-filter="medium">Medium Severity</button>
+          <button class="pill" data-filter="security">Security Only</button>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Category</th>
+              <th>Severity</th>
+              <th>Issue Title</th>
+              <th>Root Cause</th>
+              <th>Fix Version</th>
+              <th>Latest Status</th>
+            </tr>
+          </thead>
+          <tbody id="findingsTableBody">
+            <tr><td colspan="7" style="text-align:center;">Loading audit findings ledger...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <p>
+        Lead Forensic Auditor: <a href="https://akbknight.github.io/">Akshay Kumar</a> · STEM MBA Candidate @ American University Kogod School of Business (GPA 3.17 / 4.0)
+      </p>
+      <p style="margin-top: 6px; font-size: 0.78rem;">
+        Repository: <a href="https://github.com/akbknight/deborah-research-assistant-audit">github.com/akbknight/deborah-research-assistant-audit</a> · Cryptographic Byte Inspection · Zero Synthetic Claims
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    let auditData = { findings: [] };
+    let currentFilter = "all";
+    let searchQuery = "";
+
+    async function loadData() {
+      try {
+        const res = await fetch("audit_data.json");
+        auditData = await res.json();
+        renderTable();
+      } catch (err) {
+        document.getElementById("findingsTableBody").innerHTML = '<tr><td colspan="7" style="text-align:center; color:var(--danger);">Error loading audit data ledger.</td></tr>';
+      }
+    }
+
+    function renderTable() {
+      const tbody = document.getElementById("findingsTableBody");
+      tbody.innerHTML = "";
+
+      let items = auditData.findings || [];
+
+      // Filter
+      if (currentFilter === "high") {
+        items = items.filter(i => (i.severity || "").toLowerCase() === "high");
+      } else if (currentFilter === "medium") {
+        items = items.filter(i => (i.severity || "").toLowerCase() === "medium");
+      } else if (currentFilter === "security") {
+        items = items.filter(i => (i.category || "").toLowerCase() === "security");
+      }
+
+      // Search
+      if (searchQuery.trim()) {
+        const q = searchQuery.toLowerCase();
+        items = items.filter(i => 
+          (i.finding_id || "").toLowerCase().includes(q) ||
+          (i.title || "").toLowerCase().includes(q) ||
+          (i.root_cause || "").toLowerCase().includes(q)
+        );
+      }
+
+      if (items.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color:var(--text-dim);">No findings matched the current filter.</td></tr>';
+        return;
+      }
+
+      items.forEach(row => {
+        const tr = document.createElement("tr");
+        
+        const sevClass = (row.severity || "").toLowerCase() === "high" ? "sev-high" :
+                         ((row.severity || "").toLowerCase() === "medium" ? "sev-medium" : "sev-low");
+
+        const statusLower = (row.status_at_latest || "").toLowerCase();
+        const statusClass = statusLower.includes("resolved") ? "status-resolved" :
+                            (statusLower.includes("unresolved") ? "status-unresolved" : "status-paper");
+
+        tr.innerHTML = `
+          <td style="font-family:var(--font-mono); font-weight:700;">${row.finding_id}</td>
+          <td style="text-transform:capitalize;">${row.category}</td>
+          <td><span class="severity-badge ${sevClass}">${row.severity}</span></td>
+          <td style="font-weight:600;">${row.title}</td>
+          <td style="font-size:0.8rem; color:var(--text-muted); max-width:280px;">${row.root_cause}</td>
+          <td style="font-family:var(--font-mono); font-size:0.75rem;">${row.fix_version}</td>
+          <td><span class="status-badge ${statusClass}">${row.status_at_latest}</span></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // THEME TOGGLE
+    const themeBtn = document.getElementById("themeToggle");
+    const themeIcon = document.getElementById("themeIcon");
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute("data-theme");
+      const next = current === "light" ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", next);
+      localStorage.setItem("theme", next);
+      themeIcon.textContent = next === "light" ? "🌙" : "☀️";
+    }
+    themeBtn.addEventListener("click", toggleTheme);
+
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) {
+      document.documentElement.setAttribute("data-theme", savedTheme);
+      themeIcon.textContent = savedTheme === "light" ? "🌙" : "☀️";
+    }
+
+    // FILTER PILLS
+    document.querySelectorAll(".pill").forEach(pill => {
+      pill.addEventListener("click", () => {
+        document.querySelectorAll(".pill").forEach(p => p.classList.remove("active"));
+        pill.classList.add("active");
+        currentFilter = pill.dataset.filter;
+        renderTable();
+      });
+    });
+
+    // SEARCH INPUT
+    document.getElementById("searchInput").addEventListener("input", (e) => {
+      searchQuery = e.target.value;
+      renderTable();
+    });
+
+    // INIT
+    loadData();
+  </script>
+</body>
+</html>
